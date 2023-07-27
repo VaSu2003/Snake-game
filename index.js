@@ -25,19 +25,20 @@ function moveSnake(){
    snakeCurrentPos[0] += xDirection
    snakeCurrentPos[1] += yDirection
    drawSnake(); 
-//    checkForDirection()
+   checkForColission()
 }
 
-let timerId = setInterval(moveSnake,30)
+let timerId = setInterval(moveSnake,50)
 
 function checkForDirection(e){
-    console.log("pressed")
+    
     switch (e.key) {
-        case "ArrowUp":
+        case "ArrowUp":    
             xDirection = 0
             yDirection = 5
             drawSnake()
             break;
+            
         case "ArrowDown":
             xDirection = 0
             yDirection = -5
@@ -57,4 +58,10 @@ function checkForDirection(e){
             break;
     }
 
+}
+
+function checkForColission(){
+    if(snakeCurrentPos[0] < 0 || snakeCurrentPos[0] > 500 || snakeCurrentPos[1] < 0 || snakeCurrentPos[1] > 500){
+        clearInterval(timerId)
+    }
 }
