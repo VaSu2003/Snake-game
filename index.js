@@ -1,6 +1,9 @@
 //create a snake
 const grid = document.querySelector('.main')
 
+let xDirection = 5
+let yDirection = 0
+
 const snakeStart = [50,50]
 const snakeCurrentPos = snakeStart
 
@@ -9,7 +12,7 @@ snake.id = 'snake'
 grid.appendChild(snake)
 
 
-document.addEventListener('keydown',moveSnake)
+document.addEventListener('keydown',checkForDirection)
 
 //Draw snake
 function drawSnake(){
@@ -17,36 +20,40 @@ function drawSnake(){
     snake.style.bottom = snakeCurrentPos[1] + 'px'; 
 }
 
-//Move Snake
-function moveSnake(e){
+//Move snake
+function moveSnake(){
+   snakeCurrentPos[0] += xDirection
+   snakeCurrentPos[1] += yDirection
+   drawSnake(); 
+//    checkForDirection()
+}
 
-    switch(e.key){
-        case "ArrowLeft":
-            if(snakeCurrentPos[0] > 0){
-                snakeCurrentPos[0] -= 10
-                drawSnake();
-            }
-            break;
+let timerId = setInterval(moveSnake,30)
 
-        case "ArrowRight":
-            if(snakeCurrentPos[0] < 490){
-                snakeCurrentPos[0] += 10
-                drawSnake();
-            }
-            break;
-
-        case "ArrowDown":
-            if(snakeCurrentPos[1] > 0){
-                snakeCurrentPos[1] -= 10
-                drawSnake();
-            }
-            break;
-
+function checkForDirection(e){
+    console.log("pressed")
+    switch (e.key) {
         case "ArrowUp":
-            if(snakeCurrentPos[1] < 490){
-                snakeCurrentPos[1] += 10
-                drawSnake();
-            }
+            xDirection = 0
+            yDirection = 5
+            drawSnake()
+            break;
+        case "ArrowDown":
+            xDirection = 0
+            yDirection = -5
+            drawSnake()
+            break;
+        case "ArrowLeft":
+            xDirection = -5
+            yDirection = 0
+            drawSnake()
+            break;
+        case "ArrowRight":
+            xDirection = 5
+            yDirection = 0
+            drawSnake()
+            break;
+        default:
             break;
     }
 
